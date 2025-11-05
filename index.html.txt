@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>??????? ????????? - ????</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        /* [ ... ???? ????? CSS ???? ?????? ?????? ?? ????? ??? ... ] */
+        /* [ ... ?? ??? ??? ????? ????? ??????? ???????? ??? ??? ?? ???? ?? ????? style.css ?? ??? ????? ] */
+        
+        /* ????? ??? */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f6; /* ????? ????? */
+            color: #333;
+            margin: 0;
+            padding: 0;
+            text-align: right; /* ?????? ???? ?????? ??????? */
+            overflow-x: hidden; /* ??? ??????? ?????? */
+        }
+
+        /* ????? ???????? ???????? */
+        header {
+            background-color: #007bff; /* ???? ????? ??????? */
+            color: white;
+            padding: 15px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            margin: 0 auto; /* ????? ??????? */
+            font-size: 1.2rem;
+        }
+
+        .menu-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0 10px;
+        }
+
+        /* ??????? ???????? */
+        #sidebar {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            z-index: 150;
+            top: 0;
+            right: -250px; /* ??????? ?? ??????? */
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+        }
+
+        #sidebar.open {
+            right: 0;
+        }
+
+        #sidebar a {
+            padding: 15px 25px;
+            text-decoration: none;
+            font-size: 16px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+            border-bottom: 1px solid #333;
+        }
+
+        #sidebar a:hover {
+            color: #f1f1f1;
+            background-color: #007bff;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 0;
+            left: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* ????? ?????? ???????? */
+        #main-content {
+            padding: 20px;
+            transition: margin-right 0.5s;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .welcome-section {
+            text-align: center;
+            padding: 30px 0;
+            color: #007bff;
+        }
+
+        .welcome-section h1 {
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+        .welcome-section h2 {
+            font-size: 1.5rem;
+            color: #333;
+            font-weight: normal;
+        }
+
+        /* ????? ??????? ???????? */
+        .main-buttons-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* ????? ??????? */
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .main-btn {
+            background-color: white;
+            color: #007bff;
+            border: 2px solid #007bff;
+            padding: 20px 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-btn i {
+            display: block;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .main-btn:hover {
+            background-color: #007bff;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* ????? ??????? ????????? */
+        .social-media-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 0;
+            gap: 15px;
+        }
+
+        .social-media-container p {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #555;
+            margin-left: 15px;
+        }
+
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .social-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .telegram { background-color: #0088cc; }
+        .whatsapp { background-color: #25d366; }
+        .instagram { background-color: #c32aa3; }
+        .facebook { background-color: #4267b2; }
+        .youtube { background-color: #ff0000; }
+
+        /* ????? ??????? ??????? */
+        #pages-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f4f7f6;
+            z-index: 200;
+            display: none; /* ??????? ?? ??????? */
+            overflow-y: auto;
+        }
+
+        .sub-page {
+            padding: 20px;
+            max-width: 800px;
+            margin: 50px auto 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .sub-page h2 {
+            color: #007bff;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .back-btn {
+            background-color: #dc3545; /* ???? ?????? */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .sub-page-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: #e9ecef;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            text-align: right;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none; /* ?????? ????? ??????? */
+            color: #333;
+            font-weight: bold;
+        }
+
+        .sub-page-btn:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        /* ????? ???? ?????? ?? ??????? */
+        #check-level-page select, #check-level-page input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        #check-level-page .check-btn {
+            background-color: #28a745; /* ???? ?????? */
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        #check-level-page .result-message {
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .success { background-color: #d4edda; color: #155724; border-color: #c3e6cb; }
+        .failure { background-color: #f8d7da; color: #721c24; border-color: #f5c6cb; }
+
+        /* ????? ???? ??????? ???????? */
+        #centers-page select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        .center-info {
+            border: 1px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #e7f4ff;
+            margin-top: 15px;
+        }
+
+        .center-info p {
+            margin: 8px 0;
+            font-size: 1.05rem;
+        }
+
+        .center-info p i {
+            color: #007bff;
+            margin-left: 10px;
+        }
+
+        /* ???? ?????? */
+        #donation-page .donation-box {
+            background-color: #fff3cd; /* ??? ???? ???? ???????/??????? */
+            border: 1px solid #ffeeba;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        #donation-page h3 {
+            color: #856404;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .copy-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-right: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .copy-btn:hover {
+            background-color: #1e7e34;
+        }
+
+        /* ???? ???????? */
+        #loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            z-index: 300;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.3s;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .spinner {
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid #007bff;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="sidebar">
+        <button class="close-btn" onclick="toggleSidebar()">&times;</button>
+        <div class="sidebar-header">
+            <h3>????? ??????? ????????</h3>
+        </div>
+        
+        <a href="#" onclick="showPage('about-page'); return false;">?? ?? ??????? ?????????? ??</a>
+        <a href="#" onclick="showPage('check-level-page'); return false;">?????? ?? ????? ?? ??????? ?????? ?</a>
+        <a href="#" onclick="showPage('centers-page'); return false;">??????? ???????? ???????? ??</a>
+        <a href="#" onclick="showPage('donation-page'); return false;">?????? ???? ??????? ??</a>
+        <a href="#" onclick="showPage('about-app-page'); return false;">??? ??????? ??</a>
+        <a href="#" onclick="shareApp()">?????? ??????? ??</a>
+    </div>
+    
+    <header>
+        <button class="menu-btn" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+        </button>
+        <h1 class="header-title">??????? ????????? - ????</h1>
+    </header>
+
+    <main id="main-content">
+        
+        <div class="welcome-section">
+            <h1>????? ?? ???? ??????? ??</h1>
+            <h2>?? ????? **??????? ????????? - ????**</h2>
+            <p>?????? ??????? ????? ????? ??????? ?????? ??????? ???????? ?? ???</p>
+        </div>
+
+        <div class="main-buttons-container">
+            <button class="main-btn" onclick="showPage('registration-page')">
+                <i class="fas fa-user-plus"></i> ??????? ?? ????????
+            </button>
+            <button class="main-btn" onclick="showPage('documents-page')">
+                <i class="fas fa-file-alt"></i> ??? ???????
+            </button>
+            <button class="main-btn" onclick="showPage('platforms-page')">
+                <i class="fas fa-book-reader"></i> ???????? ?????????
+            </button>
+            <button class="main-btn" onclick="showPage('e-homework-page')">
+                <i class="fas fa-laptop-code"></i> ????? ??????????
+            </button>
+        </div>
+
+        <hr>
+
+        <div class="social-media-container">
+            <p>????? ????: </p>
+            <a href="https://t.me/youcef_info_2" target="_blank" class="social-icon telegram"><i class="fab fa-telegram-plane"></i></a>
+            <a href="https://wa.me/213665074666" target="_blank" class="social-icon whatsapp"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.instagram.com/youcef.info2" target="_blank" class="social-icon instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.facebook.com/share/g/1BfUsNqXFf/" target="_blank" class="social-icon facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://youtube.com/channel/UCWorEGsMcnwrSPYEFXhnfkw?si=q98lYPriNUD0ax0O" target="_blank" class="social-icon youtube"><i class="fab fa-youtube"></i></a>
+        </div>
+    </main>
+    
+    <div id="pages-container">
+        </div>
+    
+    <div id="loading-overlay" class="hidden">
+        <div class="spinner"></div>
+        <p>???? ????? ??????? ???? ????????...</p>
+    </div>
+
+    <script>
+        // [ ... ???? ????? JavaScript ???? ?????? ?? ?????? ?? ????? ??? ... ]
+        // [ ... ?? ??? ??? ????? ????? ??????? ???????? ??? ??? ?? ???? ?? ????? script.js ?? ??? ????? ]
+
+        // [ ... ???? ???? JavaScript? ??? ???? ?????? ???????? ???? ?? ??? ... ]
+
+        const pagesContainer = document.getElementById('pages-container');
+        const loadingOverlay = document.getElementById('loading-overlay');
+        let currentExternalUrl = null;
+
+        // ???? ?????? ???????? ???????? ?????? ?????
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle("open");
+        }
+
+        function showPage(pageId) {
+            toggleSidebar();
+            
+            document.getElementById('main-content').style.display = 'none';
+            pagesContainer.style.display = 'block';
+            
+            pagesContainer.innerHTML = '';
+            
+            if (pageId === 'registration-page') {
+                buildRegistrationPage();
+            } else if (pageId === 'documents-page') {
+                buildDocumentsPage();
+            } else if (pageId === 'platforms-page') {
+                buildPlatformsPage();
+            } else if (pageId === 'e-homework-page') {
+                buildEHomeworkPage();
+            } else if (pageId === 'about-page') {
+                buildAboutPage();
+            } else if (pageId === 'check-level-page') {
+                buildCheckLevelPage();
+            } else if (pageId === 'centers-page') {
+                buildCentersPage();
+            } else if (pageId === 'donation-page') {
+                buildDonationPage();
+            } else if (pageId === 'about-app-page') {
+                buildAboutAppPage();
+            }
+        }
+
+        function goBack() {
+            pagesContainer.style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+            pagesContainer.innerHTML = '';
+            currentExternalUrl = null;
+        }
+
+        function openExternalLink(url, title = "???? ???????...") {
+            showLoading();
+            // ???? ?????? ?? ????? ????? ??? ???? ??????
+            setTimeout(() => {
+                window.open(url, '_blank');
+                hideLoading();
+            }, 1500);
+        }
+
+        function shareApp() {
+            if (navigator.share) {
+                navigator.share({
+                    title: '????? ??????? ????????? - ????',
+                    text: '???? ????? ?????? ??????? ?????? ??????? ???????? ?? ???!',
+                    url: window.location.href 
+                })
+                .then(() => console.log('??? ???????? ?????'))
+                .catch((error) => alert('??? ????????: ' + error.message));
+            } else {
+                alert('???? ??? ?????? ???????? ??????.');
+            }
+        }
+
+        function showLoading() {
+            loadingOverlay.classList.remove('hidden');
+        }
+
+        function hideLoading() {
+            loadingOverlay.classList.add('hidden');
+        }
+        
+        // ???? ????? ????? ???????
+        function createLinkButton(text, url) {
+            return `<button class="sub-page-btn" onclick="openExternalLink('${url}', '${text}')">
+                ${text} <i class="fas fa-external-link-alt" style="float: left;"></i>
+            </button>`;
+        }
+        
+        // ???? ???? ???????
+        function buildRegistrationPage() {
+            const html = `
+                <div class="sub-page">
+                    <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-right"></i> ????</button>
+                    <h2>??????? ?? ???????? ??</h2>
+                    ${createLinkButton('????? ????? ????', 'https://inscriptic.onefd.edu.dz/preinscription/')}
+                    ${createLinkButton('????? ????? ????', 'https://inscriptic.onefd.edu.dz/preinscription/')}
+                </div>
+            `;
+            pagesContainer.innerHTML = html;
+        }
+
+        // ???? ???? ??? ???????
+        function buildDocumentsPage() {
+            const html = `
+                <div class="sub-page">
+                    <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-right"></i> ????</button>
+                    <h2>??? ???? ??????? ???</h2>
+                    ${createLinkButton('????? ??? ????? ???????', 'https://inscriptic.onefd.edu.dz/preinscription/')}
+                    ${createLinkButton('??????? ????? ???????', 'https://inscriptic.onefd.edu.dz/preinscription/')}
+                    ${createLinkButton('??????? ????? ???????', 'https://inscriptic.onefd.edu.dz/preinscription/')}
+                    ${createLinkButton('????? ??????? ????????', 'https://e-devoir-3am.onefd.edu.dz/preinscription/index.php/upload_documents')}
+                    ${createLinkButton('??????? ??? ???????', 'https://inscriptic.onefd.edu.dz/numins/num_ins_index.php')}
+                    ${createLinkButton('??????? ??????? ?????? ???????', 'https://inscriptic.onefd.edu.dz/convocation_2025/cen2012.php')}
+                    ${createLinkButton('??????? ??? ??????', 'http://inscriptic.onefd.edu.dz/releve/matricule.php')}
+                    ${createLinkButton('??????? ????? ????? ???????', 'https://www.onefd.edu.dz/att_niv_2025/')}
+                </div>
+            `;
+            pagesContainer.innerHTML = html;
+        }
+
+        // ???? ???? ???????? ?????????
+        function buildPlatformsPage() {
+            const html = `
+                <div class="sub-page">
+                    <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-right"></i> ????</button>
+                    <h2>???????? ????????? (Scolarium) ??</h2>
+                    ${createLinkButton('??????? ???????', 'http://scolarium-moyen.onefd.edu.dz/login/index.php')}
+                    ${createLinkButton('????? ???? ?????', 'http://scolarium-1as.onefd.edu.dz/login/index.php')}
+                    ${createLinkButton('????? ??????? ?????', 'http://scolarium-2as.onefd.edu.dz/login/index.php')}
+                    ${createLinkButton('????? ??????? ?????', 'http://scolarium-3as.onefd.edu.dz/login/index.php')}
+                </div>
+            `;
+            pagesContainer.innerHTML = html;
+        }
+
+        // ???? ???? ????? ??????????
+        function buildEHomeworkPage() {
+            const html = `
+                <div class="sub-page" id=
